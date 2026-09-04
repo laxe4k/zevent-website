@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      ZEVENT_UPSTREAM: ${ZEVENT_UPSTREAM:-https://zevent.fr/api/}
+      ZEVENT_POLL_INTERVAL: ${ZEVENT_POLL_INTERVAL:-30}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    restart: unless-stopped
