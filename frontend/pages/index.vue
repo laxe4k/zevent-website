@@ -211,7 +211,6 @@ const AnimatedNumber = defineComponent({
       <div class="topbar__right">
         <a href="https://boutique.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">Boutique</a>
         <a href="https://zevent.fr/don" target="_blank" rel="noreferrer" class="topbar__btn">Donation</a>
-        <a href="https://stats.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">Stats</a>
         <a href="https://place.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">ZPlace</a>
       </div>
     </header>
