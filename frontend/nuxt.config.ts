@@ -10,11 +10,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'fr' },
-      title: 'ZEvent Live',
+      title: 'ZEVENT 2026 - Statistiques en direct',
       meta: [
         {
           name: 'description',
-          content: 'Suivez la cagnotte et les streamers du ZEvent en direct.',
+          content: 'Suivez les statistiques en direct du ZEVENT 2026, l\'événement caritatif de streaming le plus attendu de l\'année. Découvrez les dons, les records et les moments forts en temps réel.',
         },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
