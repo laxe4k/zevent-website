@@ -205,12 +205,14 @@ const AnimatedNumber = defineComponent({
 <template>
   <main class="dashboard">
     <header class="topbar">
-      <a class="wordmark" href="#top">
+      <a class="wordmark" href="/">
         <img src="https://zevent.fr/assets/logo-2026-Ce9cgF9k.png" alt="ZEvent" class="wordmark__logo">
       </a>
-      <div class="feed-state" :class="`feed-state--${connection}`">
-        <span class="feed-state__signal" aria-hidden="true" />
-        {{ connectionLabel }}
+      <div class="topbar__right">
+        <a href="https://boutique.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">Boutique</a>
+        <a href="https://zevent.fr/don" target="_blank" rel="noreferrer" class="topbar__btn">Donation</a>
+        <a href="https://stats.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">Stats</a>
+        <a href="https://place.zevent.fr/" target="_blank" rel="noreferrer" class="topbar__btn">ZPlace</a>
       </div>
     </header>
 
