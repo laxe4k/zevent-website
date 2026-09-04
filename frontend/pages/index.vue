@@ -45,7 +45,7 @@ const hasMore = computed(() => visibleCount.value < streamers.value.length)
 
 watch([search, onlineOnly, sort], () => { visibleCount.value = PAGE_SIZE })
 
-const money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })
+const money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 const number = new Intl.NumberFormat('fr-FR')
 
 function donations(s: Streamer) { return Number(s.donationAmount?.number || 0) }
@@ -222,7 +222,7 @@ const AnimatedNumber = defineComponent({
         <div class="chart">
           <div class="chart__head">
             <span class="chart__label">Top 6 cagnotte</span>
-            <span v-if="donationTotal > 0" class="chart__total"><AnimatedNumber :value="donationTotal" />&nbsp;&euro;</span>
+            <span v-if="donationTotal > 0" class="chart__total"><AnimatedNumber :value="donationTotal" format="money" /></span>
           </div>
           <div class="chart__bars">
             <div v-for="(item, i) in topByDonations" :key="item.name" class="chart__row">
@@ -231,7 +231,7 @@ const AnimatedNumber = defineComponent({
               <div class="chart__track">
                 <div class="chart__fill" :style="{ width: item.pct + '%' }" />
               </div>
-              <span class="chart__val"><AnimatedNumber :value="item.amount" />&nbsp;&euro;</span>
+              <span class="chart__val"><AnimatedNumber :value="item.amount" format="money" /></span>
             </div>
             <p v-if="topByDonations.length === 0" class="chart__empty">Aucune donation enregistree.</p>
           </div>

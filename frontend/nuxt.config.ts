@@ -1,5 +1,7 @@
 export default defineNuxtConfig({
   ssr: false,
+  modules: ['@nuxt/icon'],
+  compatibilityDate: '2026-09-04',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
