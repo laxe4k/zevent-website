@@ -215,6 +215,7 @@ const AnimatedNumber = defineComponent({
     </header>
 
     <section id="top" class="hero">
+      <a href="https://zevent.fr/" target="_blank" rel="noreferrer"><img src="https://zevent.fr/assets/banner-2026-2-Bqkgwhtq.webp" alt="ZEvent 2026" class="hero__banner" loading="eager"></a>
       <div class="hero__inner">
         <div class="chart">
           <div class="chart__head">
