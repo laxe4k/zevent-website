@@ -1,8 +1,6 @@
 services:
   api:
     build: ./backend
-    ports:
-      - "${API_PORT:-8000}:8000"
     environment:
       ZEVENT_UPSTREAM: ${ZEVENT_UPSTREAM:-https://zevent.fr/api/}
       ZEVENT_POLL_INTERVAL: ${ZEVENT_POLL_INTERVAL:-30}
@@ -11,8 +9,6 @@ services:
 
   web:
     build: ./frontend
-    ports:
-      - "${WEB_PORT:-3000}:3000"
     environment:
       NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE:-http://api:8000}
     depends_on:
