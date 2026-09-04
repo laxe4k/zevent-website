@@ -260,7 +260,7 @@ const AnimatedNumber = defineComponent({
       <article class="card card--hero">
         <span class="card__label">Cagnotte globale</span>
         <strong class="card__big"><AnimatedNumber :value="Number(dashboard?.donationAmount?.number || 0)" format="money" /></strong>
-        <a v-if="dashboard?.globalDonationUrl" class="card__link" :href="dashboard.globalDonationUrl" target="_blank" rel="noreferrer">Soutenir la cagnotte &rarr;</a>
+        <a v-if="dashboard?.globalDonationUrl" class="card__link" :href="dashboard.globalDonationUrl" target="_blank" rel="noreferrer">Faire un don au ZEVENT</a>
       </article>
       <article class="card">
         <span class="card__label">Audience</span>
