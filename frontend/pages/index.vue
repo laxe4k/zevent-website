@@ -22,6 +22,7 @@ const config = useRuntimeConfig()
 const dashboard = ref<Dashboard>()
 const search = ref('')
 const onlineOnly = ref(false)
+const locationFilter = ref('')
 const sort = ref('donations')
 const loading = ref(true)
 const refreshing = ref(false)
@@ -43,7 +44,7 @@ const sentinelEl = ref<HTMLElement>()
 const visibleStreamers = computed(() => streamers.value.slice(0, visibleCount.value))
 const hasMore = computed(() => visibleCount.value < streamers.value.length)
 
-watch([search, onlineOnly, sort], () => { visibleCount.value = PAGE_SIZE })
+watch([search, onlineOnly, locationFilter, sort], () => { visibleCount.value = PAGE_SIZE })
 
 const money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 const number = new Intl.NumberFormat('fr-FR')
@@ -109,7 +110,8 @@ const streamers = computed(() => {
   return [...allLive.value]
     .filter((s) => {
       const match = `${s.display || ''} ${s.twitch || ''}`.toLowerCase().includes(needle)
-      return match && (!onlineOnly.value || s.online)
+      const matchLocation = !locationFilter.value || s.location === locationFilter.value
+      return match && matchLocation && (!onlineOnly.value || s.online)
     })
     .sort((a, b) => {
       if (sort.value === 'viewers') return viewers(b) - viewers(a)
@@ -311,10 +313,16 @@ const AnimatedNumber = defineComponent({
             <span>En ligne</span>
           </label>
           <div class="filters__sort">
+            <select v-model="locationFilter">
+              <option value="">Tous</option>
+              <option value="LAN">Sur place</option>
+              <option value="Online">En ligne</option>
+            </select>
+          </div>
+          <div class="filters__sort">
             <select v-model="sort">
               <option value="donations">Donations</option>
               <option value="viewers">Audience</option>
-              <option value="online">Direct</option>
               <option value="name">Nom</option>
             </select>
           </div>
@@ -345,7 +353,7 @@ const AnimatedNumber = defineComponent({
             <span class="scard__badge" :class="{ 'scard__badge--on': s.online }">{{ s.online ? 'Direct' : 'Off' }}</span>
           </div>
 
-          <p class="scard__game">{{ s.game || 'A venir' }}<span v-if="s.location"> &middot; {{ s.location }}</span></p>
+          <p class="scard__game">{{ s.game || 'A venir' }}<span v-if="s.location"> &middot; {{ s.location === 'LAN' ? 'Sur place' : 'En ligne' }}</span></p>
 
           <div class="scard__stats">
             <div><span>Viewers</span><strong><AnimatedNumber :value="viewers(s)" /></strong></div>
