@@ -115,6 +115,7 @@ const streamers = computed(() => {
     })
     .sort((a, b) => {
       if (sort.value === 'viewers') return viewers(b) - viewers(a)
+      if (sort.value === 'game') return Number(b.online) - Number(a.online) || (a.game || 'ZZZ').localeCompare(b.game || 'ZZZ', 'fr') || (a.display || '').localeCompare(b.display || '', 'fr')
       if (sort.value === 'name') return (a.display || '').localeCompare(b.display || '', 'fr')
       if (sort.value === 'online') return Number(b.online) - Number(a.online) || donations(b) - donations(a)
       return donations(b) - donations(a)
@@ -310,19 +311,20 @@ const AnimatedNumber = defineComponent({
           <label class="toggle">
             <input v-model="onlineOnly" type="checkbox">
             <span class="toggle__track"><span class="toggle__thumb" /></span>
-            <span>En ligne</span>
+            <span>En live</span>
           </label>
           <div class="filters__sort">
             <select v-model="locationFilter">
               <option value="">Tous</option>
               <option value="LAN">Sur place</option>
-              <option value="Online">En ligne</option>
+              <option value="Online">À distance</option>
             </select>
           </div>
           <div class="filters__sort">
             <select v-model="sort">
               <option value="donations">Donations</option>
               <option value="viewers">Audience</option>
+              <option value="game">Jeux</option>
               <option value="name">Nom</option>
             </select>
           </div>
@@ -350,10 +352,10 @@ const AnimatedNumber = defineComponent({
               <h3>{{ s.display || s.twitch }}</h3>
               <p v-if="s.twitch" class="scard__twitch">@{{ s.twitch }}</p>
             </div>
-            <span class="scard__badge" :class="{ 'scard__badge--on': s.online }">{{ s.online ? 'Direct' : 'Off' }}</span>
+            <span class="scard__badge" :class="{ 'scard__badge--on': s.online }">{{ s.online ? 'En live' : 'Hors ligne' }}</span>
           </div>
 
-          <p class="scard__game">{{ s.game || 'A venir' }}<span v-if="s.location"> &middot; {{ s.location === 'LAN' ? 'Sur place' : 'En ligne' }}</span></p>
+          <p class="scard__game">{{ s.game || 'A venir' }}<span v-if="s.location"> &middot; {{ s.location === 'LAN' ? 'Sur place' : 'À distance' }}</span></p>
 
           <div class="scard__stats">
             <div><span>Viewers</span><strong><AnimatedNumber :value="viewers(s)" /></strong></div>
