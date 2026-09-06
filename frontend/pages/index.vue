@@ -55,16 +55,7 @@ function formatMoney(a?: Amount) { return money.format(Number(a?.number || 0)) }
 function formatNumber(v?: Amount | number) { return number.format(typeof v === 'number' ? v : Number(v?.number || 0)) }
 
 const allLive = computed(() => {
-  const list = dashboard.value?.live || []
-  const globalTotal = Number(dashboard.value?.donationAmount?.number || 0)
-  const streamersSum = list.reduce((sum, s) => sum + donations(s), 0)
-  const diff = Math.max(globalTotal - streamersSum, 0)
-  if (diff <= 0) return list
-  return list.map((s) => {
-    if (s.twitch !== 'zevent') return s
-    const current = donations(s)
-    return { ...s, donationAmount: { number: current + diff } }
-  })
+  return dashboard.value?.live || []
 })
 
 const onlineCount = computed(() => allLive.value.filter((s) => s.online).length)
@@ -79,7 +70,7 @@ const donationTotal = computed(() => Number(dashboard.value?.donationAmount?.num
 
 const topByDonations = computed(() => {
   const sorted = [...allLive.value]
-    .filter((s) => donations(s) > 0 && s.twitch !== 'zevent')
+    .filter((s) => donations(s) > 0)
     .sort((a, b) => donations(b) - donations(a))
     .slice(0, 6)
   const max = donations(sorted[0] || {})
