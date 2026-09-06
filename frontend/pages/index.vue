@@ -79,7 +79,7 @@ const donationTotal = computed(() => Number(dashboard.value?.donationAmount?.num
 
 const topByDonations = computed(() => {
   const sorted = [...allLive.value]
-    .filter((s) => donations(s) > 0)
+    .filter((s) => donations(s) > 0 && s.twitch !== 'zevent')
     .sort((a, b) => donations(b) - donations(a))
     .slice(0, 6)
   const max = donations(sorted[0] || {})
